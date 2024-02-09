@@ -26,6 +26,8 @@ class BaseModel:
                         setattr(self, key, datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
                     else:
                         setattr(self, key, value)
+        else:
+            models.storage.new(self)
     
      
     def save(self):
