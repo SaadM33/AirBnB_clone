@@ -5,10 +5,7 @@ import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-        """Defines the HolbertonBnB command interpreter."""
-        
-
-
+    """Defines the HolbertonBnB command interpreter."""
 
 
 if __name__ == '__main__':

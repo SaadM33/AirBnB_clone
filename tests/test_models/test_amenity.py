@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """Defines tests for models/amenity.py.
 
 Test classes:
@@ -85,6 +84,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         with self.assertRaises(TypeError):
             Amenity(id=None, created_at=None, updated_at=None)
 
+
 class TestAmenity_save(unittest.TestCase):
     """Unit tests for examining save method of the Amenity class."""
 
@@ -134,6 +134,7 @@ class TestAmenity_save(unittest.TestCase):
         amid = "Amenity." + am.id
         with open("file.json", "r") as f:
             self.assertIn(amid, f.read())
+
 
 class TestAmenity_to_dict(unittest.TestCase):
     """Unit tests for evaluating to_dict method of the Amenity class."""
