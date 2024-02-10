@@ -35,27 +35,24 @@ class FileStorage:
         deserializes the JSON file to __objects only if the JSON
         file exists; otherwise, does nothing
         """
-        current_classes = {'BaseModel': BaseModel, 'User': User,
-                           'Amenity': Amenity, 'City': City, 'State': State,
-                           'Place': Place, 'Review': Review}
+        class_map = {
+                    'BaseModel': BaseModel,
+                    'User': User,
+                    'City': City,
+                    'Place': Place
+            }
+        try:
+            with open(self.__file_path, "r", encoding="UTF-8") as text_file:
+                obj_dict = json.load(text_file)
 
-        if not os.path.exists(FileStorage.__file_path):
-            return
-
-        with open(FileStorage.__file_path, 'r') as f:
-            deserialized = None
-
-            try:
-                deserialized = json.load(f)
-            except json.JSONDecodeError:
-                pass
-
-            if deserialized is None:
-                return
-
-            FileStorage.__objects = {
-                k: current_classes[k.split('.')[0]](**v)
-                for k, v in deserialized.items()}
+                for key, val in obj_dict.items():
+                    class_name = val['__class__']
+                    class_instance = class_map[class_name]
+                    instance = class_instance(**val)
+                    all_objects = self.all()
+                    all_objects[key] = instance
+        except FileNotFoundError:
+            pass
 
     def save(self):
         """Serializes the dict of objs to JSON file after converting to dict"""
