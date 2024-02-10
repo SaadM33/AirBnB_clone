@@ -56,5 +56,3 @@ class FileStorage:
         object_dict = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(object_dict, f)
-
-print('1')
