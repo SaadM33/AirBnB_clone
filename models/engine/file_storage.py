@@ -8,6 +8,7 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
+import os
 
 
 class FileStorage:
@@ -30,16 +31,31 @@ class FileStorage:
         FileStorage.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def reload(self):
-        """Deserializes the JSON file to __objects"""
-        try:
-            with open(FileStorage.__file_path) as f:
-                objdict = json.load(f)
-                for obj in objdict.values():
-                    cls_name = obj["__class__"]
-                    del obj["__class__"]
-                    self.new(eval(cls_name)(**obj))
-        except FileNotFoundError:
-            pass
+        """
+        deserializes the JSON file to __objects only if the JSON
+        file exists; otherwise, does nothing
+        """
+        current_classes = {'BaseModel': BaseModel, 'User': User,
+                           'Amenity': Amenity, 'City': City, 'State': State,
+                           'Place': Place, 'Review': Review}
+
+        if not os.path.exists(FileStorage.__file_path):
+            return
+
+        with open(FileStorage.__file_path, 'r') as f:
+            deserialized = None
+
+            try:
+                deserialized = json.load(f)
+            except json.JSONDecodeError:
+                pass
+
+            if deserialized is None:
+                return
+
+            FileStorage.__objects = {
+                k: current_classes[k.split('.')[0]](**v)
+                for k, v in deserialized.items()}
 
     def save(self):
         """Serializes the dict of objs to JSON file after converting to dict"""
