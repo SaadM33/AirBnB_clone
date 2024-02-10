@@ -36,8 +36,9 @@ class FileStorage:
         file exists; otherwise, does nothing
         """
         class_map = {'BaseModel': BaseModel, 'User': User,
-                           'Amenity': Amenity, 'City': City, 'State': State,
-                           'Place': Place, 'Review': Review}
+                     'Amenity': Amenity, 'City': City, 'State': State,
+                     'Place': Place, 'Review': Review
+                     }
         try:
             with open(self.__file_path, "r", encoding="UTF-8") as text_file:
                 obj_dict = json.load(text_file)
