@@ -1,6 +1,15 @@
 #!/usr/bin/python3
 """Defines the FileStorage class."""
+import os
+import sys
 
+# Get the current script's directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Append the parent directory to the sys.path
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+grand_parent_dir = os.path.abspath(os.path.join(parent_dir, '..'))
+sys.path.extend([parent_dir, grand_parent_dir])
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -48,4 +57,4 @@ class FileStorage:
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(object_dict, f)
 
-    
+print('1')
