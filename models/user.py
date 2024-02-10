@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Defines the User class."""
-from models.base_model import BaseModel
 import os
 import sys
 
@@ -11,6 +10,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
 grand_parent_dir = os.path.abspath(os.path.join(parent_dir, '..'))
 sys.path.extend([parent_dir, grand_parent_dir])
+
+from models.base_model import BaseModel
 
 class User(BaseModel):
     """Represent a User.
