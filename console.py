@@ -22,6 +22,7 @@ __classes = {
         "Review"
     }
 
+
 class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter."""
     prompt = "(hbnb) "
@@ -38,9 +39,6 @@ class HBNBCommand(cmd.Cmd):
         """Exit the program"""
         print()
         return True
-
-
-
 
 
 if __name__ == '__main__':
