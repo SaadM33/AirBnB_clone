@@ -27,18 +27,18 @@ class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter."""
     prompt = "(hbnb) "
 
-    def emptyline(self):
-        """Do nothing when receiving an empty line."""
-        return
-
-    def do_quit(self):
-        """Exit the program"""
+    def do_quit(self, arg):
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, arg):
-        """Exit the program"""
-        print()
+        """Handles EOF signal to exit the program"""
+        print()  # print a new line for clarity
         return True
+
+    def emptyline(self):
+        """Do nothing on empty input"""
+        pass
 
 
 if __name__ == '__main__':
