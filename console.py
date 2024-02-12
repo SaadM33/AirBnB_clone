@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
         attribute_name = args[2]
         attribute_value = args[3]
 
-        obj = storage.all()[key]
+        obj = storage.all()[f"{args[0]}.{args[1]}"]
         try:
             # Attempt to evaluate the attribute value to handle different types
             attribute_value = eval(attribute_value)
