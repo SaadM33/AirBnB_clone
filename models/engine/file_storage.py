@@ -35,17 +35,18 @@ class FileStorage:
         deserializes the JSON file to __objects only if the JSON
         file exists; otherwise, does nothing
         """
-        class_map = {'BaseModel': BaseModel, 'User': User,
-                     'Amenity': Amenity, 'City': City, 'State': State,
-                     'Place': Place, 'Review': Review
-                     }
+        cls_map = {'BaseModel': BaseModel, 'User': User,
+                   'Amenity': Amenity, 'City': City, 'State': State,
+                   'Place': Place, 'Review': Review
+                   }
         try:
             with open(self.__file_path, "r", encoding="UTF-8") as text_file:
                 obj_dict = json.load(text_file)
 
                 for key, val in obj_dict.items():
-                    class_name = val['__class__']
-                    class_instance = class_map[class_name]
+                    cls_name = val['__class__']
+                    class_instance = cls_map[cls_name]
+                    del val['__class__']
                     instance = class_instance(**val)
                     all_objects = self.all()
                     all_objects[key] = instance
